@@ -44,7 +44,7 @@ To create the VPC here is code. You can change the cidr_block, assign ip range a
 
 3)192.168.0.0 – 192.168.255.255
 
--------------------start------------------------------
+
   
     resource "aws_vpc" "sswvpc" {
     cidr_block       = "192.168.0.0/16"
@@ -54,12 +54,12 @@ To create the VPC here is code. You can change the cidr_block, assign ip range a
     Name = "Vpc_terraform"
     }  
     }
----------------------end------------------------------
+
 For creating the private and public subnet here is code.here you can change a availability_zone_id of your region, you have to assign 2 different availability_zone_id.
 
--------------------start------------------------------
-//public subnet
 
+    
+    //public subnet
       resource "aws_subnet" "sswsn1" {
        depends_on = [aws_vpc.sswvpc]
         vpc_id     = aws_vpc.sswvpc.id
@@ -71,8 +71,7 @@ For creating the private and public subnet here is code.here you can change a av
           Name = "Public_Subnet_terraform"
         }
       }
-//private subnet
-
+    //private subnet
       resource "aws_subnet" "sswsn2" {
       depends_on = [aws_vpc.sswvpc]
         vpc_id     = aws_vpc.sswvpc.id
@@ -83,12 +82,11 @@ For creating the private and public subnet here is code.here you can change a av
         }
       }
 
----------------------end------------------------------
+
 To create internet getway
 
--------------------start------------------------------
-//creating internet getway
 
+    //creating internet getway
     resource "aws_internet_gateway" "sswig" {
     depends_on = [aws_vpc.sswvpc]
       vpc_id = aws_vpc.sswvpc.id
@@ -97,11 +95,10 @@ To create internet getway
     }
     }
 
----------------------end------------------------------
-Updating the default routing table
--------------------start------------------------------
-//updating default routing table
 
+Updating the default routing table
+
+    //updating default routing table
       resource "aws_default_route_table" "r" {
       depends_on  = [aws_internet_gateway.sswig,aws_vpc.sswvpc]
         default_route_table_id = aws_vpc.sswvpc.default_route_table_id
@@ -115,9 +112,9 @@ Updating the default routing table
       
       }
       }
----------------------end------------------------------
+
 Attaching the routing table to public subnet
--------------------start------------------------------
+
     //routing association with subnet1 making it public
     resource "aws_route_table_association" "a" {
     depends_on  = [aws_default_route_table.r,aws_subnet.sswsn1]
@@ -125,10 +122,10 @@ Attaching the routing table to public subnet
          route_table_id = aws_vpc.sswvpc.default_route_table_id
     }
 
----------------------end------------------------------
+
 Here is the important part which is security group which plays important rule without it security is no that much strong.
 
--------------------start------------------------------
+
 
       //creating security grp for bostion host 
       resource "aws_security_group" "mysecbh"{
@@ -235,10 +232,10 @@ Here is the important part which is security group which plays important rule wi
                Name = "SG_MySql_terraform"
           }
     }
--------------------end--------------------------------
+
 Launching EC2 instances of WordPress, MySql and bostion host. If you have your AMI of WordPress, MySql you can change AMI in this code, but you also change in last code where uploading key to bastion host instance. Also you can change instance_type which you want
 
--------------------start------------------------------
+
 
       //creating WordPress OS
       resource "aws_instance" "wpmyins"{
@@ -278,9 +275,9 @@ Launching EC2 instances of WordPress, MySql and bostion host. If you have your A
             Name = "Bositon_Host_os_terraform"
           }
     }
--------------------end--------------------------------
+
 Here is last part downloading IPs of instances and uploading the key on bostion host os.
--------------------start------------------------------
+
 
     //downloading required IPs of all three OS
     resource "null_resource" "download_IP"{
@@ -293,10 +290,10 @@ Here is last part downloading IPs of instances and uploading the key on bostion 
               command = "echo WORDPRESS_Public_IP:${aws_instance.wpmyins.public_ip}-----WORDPRESS_Private_IP:${aws_instance.wpmyins.private_ip}-----Bositon_OS_Public_IP:${aws_instance.bhmyins.public_ip}-----MySql_Privat_IP:${aws_instance.msmyins.private_ip} > your_domain.txt "   //you will get your ip address in "your_domain.txt" file in directory where you run this code    
           } 
           }
--------------------end--------------------------------
+
 
 //Uploading the Key pair (file_name.pem) to the bostion host
--------------------start------------------------------
+
 
     resource "null_resource" "Uploading_key_on_bh_instance"{
         depends_on = [
@@ -308,13 +305,13 @@ Here is last part downloading IPs of instances and uploading the key on bostion 
               command = "scp -i C:/Users/SSRJ/Desktop/tera/ssw/asdf.pem C:/Users/SSRJ/Desktop/tera/ssw/asdf.pem  ec2-user@${aws_instance.bhmyins.public_ip}:~/"      
           }
       }
--------------------end--------------------------------
--------------------start------------------------------for example
+
+Example
 
     command = "scp -i Path_Of_Key_pair Path_Of_Uploading_Key_Pair  ec2-user@${aws_instance.bhmyins.public_ip}:~/"
     //for example 
     command = "scp -i C:/Users/SSRJ/Desktop/tera/ssw/asdf.pem C:/Users/SSRJ/Desktop/tera/ssw/asdf.pem  ec2-user@${aws_instance.bhmyins.public_ip}:~/"
--------------------end--------------------------------for example
+
 In above command you have to change the path Path_Of_Key_pair Path_Of_Uploading_Key_Pair as shown in example above.
 
 Now save all the code in file name as main.tf as shown below
@@ -341,7 +338,7 @@ You will get the IPs required for the connection to instances. You can see this 
 Now it is time to create database and user in MySql and install the WordPress, to create database we have to connect to bostion host os using ssh or putty. Here i connected to bostion host using putty.
 
 All the entered command in below images are given below, here while creating user you have to enter the Private_ip address of the WordPress which you get in the file shown above name as your_domain.txt
--------------------start------------------------------
+
 
     ls                    //you will see uploades key by this command
     sudo -su root 
@@ -355,7 +352,7 @@ All the entered command in below images are given below, here while creating use
     //Greanting all privileges to user
     GRANT ALL PRIVILEGES ON ssw_wp.*  TO 'ssw_usrs'@'192.168.0.127';
     //Greanting all privileges to user
--------------------end--------------------------------
+
 
 "see putty1 image"
 "see putty2 image"
