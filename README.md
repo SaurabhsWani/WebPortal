@@ -16,7 +16,7 @@ Starting Setup:
 
 Paste both .exe file in your environment variable path or create new environment variable path. Search environmental variable you will see below window, you can both .exe files in that path C:\Users\SSRJ\AppData\Local\program...
 
-"see Environmet_variable image"
+    "see Environmet_variable image"
 
 Creat a new folder or directory where you want and save all the below file in that folder/directory as shown above.
 
@@ -24,15 +24,15 @@ Terraform: Terraform is a very intelligent code, it can interact with any of the
 
 Note: Before going to run any terraform file, first run the command "terraform init", after running this command terraform will download all plugin require for your code. As shown in image
 
-"see Init image"
+    "see Init image"
 
 If you run terraform code without terraform init command you will face error shown below
 
-"see Error image"
+    "see Error image"
 
 After initializing terraform, login your aws account from cli with some profile name(ssw is used in image) as shown in image. This profile name we must have to provide in the terraform code.
 
-"see login image"
+    "see login image"
 
 Now here starts the main practical
 
@@ -315,25 +315,26 @@ Example
 In above command you have to change the path Path_Of_Key_pair Path_Of_Uploading_Key_Pair as shown in example above.
 
 Now save all the code in file name as main.tf as shown below
-"see the main.tf file"
+
+    "see the main.tf file"
 
 Run command "terraform apply -auto-approve" to create complete environment
 Note: You have to enter yes while running the code in cmd as shown in image. This is for the uploading key on bostion host.
 
-"see the main.tf image"
+    "see the main.tf image"
 
 And the setup is ready, you can see from the console of aws
 
-"see 3 EC2 Instances image"
-"see 3 Security Groups image"
-"see VPC image"
-"see 2 Subnets image"
-"see Internet Getway image"
-"see Routing table image"
+    "see 3 EC2 Instances image"
+    "see 3 Security Groups image"
+    "see VPC image"
+    "see 2 Subnets image"
+    "see Internet Getway image"
+    "see Routing table image"
 
 You will get the IPs required for the connection to instances. You can see this in folder or path where you run the code. As shown in image.
 
-"see your_domain image"
+    "see your_domain image"
 
 Now it is time to create database and user in MySql and install the WordPress, to create database we have to connect to bostion host os using ssh or putty. Here i connected to bostion host using putty.
 
@@ -354,9 +355,9 @@ All the entered command in below images are given below, here while creating use
     //Greanting all privileges to user
 
 
-"see putty1 image"
-"see putty2 image"
-"see putty3 image"
+    "see putty1 image"
+    "see putty2 image"
+    "see putty3 image"
 
 Now the database and user is created so use public ip of the WordPress to connect to website. As shown in image
 
