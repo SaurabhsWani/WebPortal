@@ -42,7 +42,7 @@ To create the VPC here is code. You can change the cidr_block, assign ip range a
 
 2) 172.16.0.0 – 172.31.255.255
 
-3)192.168.0.0 – 192.168.255.255
+3) 192.168.0.0 – 192.168.255.255
 
 
   
@@ -359,14 +359,16 @@ All the entered command in below images are given below, here while creating use
 "see putty3 image"
 
 Now the database and user is created so use public ip of the WordPress to connect to website. As shown in image
-"see wp1 image"
-"see wp2 image"
-"see wp3 image"
-"see wp4 image"
-"see wp5 image"
+
+    "see wp1 image"
+    "see wp2 image"
+    "see wp3 image"
+    "see wp4 image"
+    "see wp5 image"
 Finally here is complete setup is ready!
 If you want to delete complete setup run command "terraform destroy -auto-approve" and all setup will be deleted
-"see delete (1) image"
-"see delete (2) image"
+
+    "see delete (1) image"
+    "see delete (2) image"
 
 Finally here is complete setup is ready! So finally the complete architecture of Launching web portal on aws Using Terraform is completed from start to end or creating to deletion.
