@@ -53,7 +53,6 @@ resource "aws_vpc" "sswvpc" {
     Name = "Vpc_terraform"
   }
 }
-
 ---------------------end------------------------------
 For creating the private and public subnet here is code.here you can change a availability_zone_id of your region, you have to assign 2 different availability_zone_id.
 
