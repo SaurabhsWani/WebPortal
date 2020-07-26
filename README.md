@@ -56,7 +56,6 @@ For creating the private and public subnet here is code.here you can change a av
         cidr_block = "192.168.0.0/24"
         availability_zone_id = "aps1-az1"
         map_public_ip_on_launch = true
-        enable_dns_hostnames = true
         tags = {
           Name = "Public_Subnet_terraform"
         }
